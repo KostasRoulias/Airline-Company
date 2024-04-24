@@ -1,0 +1,94 @@
+.body {
+    min-height: 100vh; 
+    display: flex; 
+    flex-direction: column; 
+    background-image: linear-gradient(to left,rgb(127, 189, 239), rgb(92, 179, 251), rgb(51, 124, 184), rgb(76, 136, 185));
+}
+
+.admin-container {
+    position: absolute;
+    top: calc(100% - 630px);
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    width: 100%;
+    z-index: 1; 
+}
+.admin-container h2 {
+    font-size: 28px;
+    color: #3f476b;
+    text-decoration: underline;
+    text-shadow: 3px 3px 1px rgba(193, 10, 206, 0.5); 
+    transition: box-shadow 0.3s ease; 
+}
+.admin-container h2:hover{
+    text-shadow: 3px 3px 10px rgba(233, 141, 240, 0.5); 
+    transition: box-shadow 0.3s ease; 
+}
+#logoutBtn{
+    border-radius: 22%;
+}
+.categories{
+    width: 300px;
+   height: 500px;
+}
+.data{
+    display:block;
+    position: absolute;
+    font-size: 15px;
+    border: solid 1px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 40% 5%;
+    width: 200px;
+    height: 30px;
+    text-align: center;
+    background-color: #e386d6;
+    padding-bottom: 20px;
+    box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.9); 
+    transition: box-shadow 0.3s ease; 
+}
+.data:hover {
+    box-shadow: 6px 6px 15px rgba(157, 129, 213, 0.9);
+    color: rgb(157, 168, 178); 
+}
+.dataTitle{
+    font-weight: 200px;
+    color: rgb(24, 25, 24);
+}
+.flight {
+    left: 50%;
+    top: 28%;
+    transform: translate(-50%, -50%);
+}
+.intermediateCity {
+    left: 50%;
+    top: 35%;
+    transform: translate(-50%, -50%);
+}
+.airplane {
+    left: 50%;
+    top: 42%;
+    transform: translate(-50%, -50%);
+}
+.staff {
+    left: 50%;
+    top: 49%;
+    transform: translate(-50%, -50%);
+}
+.passenger {
+    left: 50%;
+    top: 56%;
+    transform: translate(-50%, -50%);
+} 
+.user {
+    left: 50%;
+    top: 63%;
+    transform: translate(-50%, -50%);
+} 
+
+
+footer {
+    margin-top: auto; 
+}
