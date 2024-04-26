@@ -73,6 +73,39 @@ document.addEventListener("DOMContentLoaded", function() {
     
 });
 
+//function to dissappear the date label of departure when the trip is one way
+// document.addEventListener("DOMContentLoaded", function() {
+//     const oneway = document.querySelector(".oneway");
+//     const roundtrip = document.querySelector(".roundtrip");
+//     const departureDate = document.querySelector(".depDate");
+
+
+//     if (!oneway.checked && !roundtrip.checked) {
+//         departureDate.style.display = "block";
+//     }
+
+//     oneway.addEventListener("click", function() {
+//         if (oneway.checked) {
+//             departureDate.style.display = "none";
+//         } else {
+//             departureDate.style.display = "block";
+//         }
+        
+//     });
+
+//     departureDate.addEventListener("click", function(event) {
+//         event.stopPropagation();
+//     });
+
+
+//     document.addEventListener("click", function(event) {
+//         if (!departureDate.contains(event.target) && event.target !== oneway) {
+//             departureDate.style.display = "block";
+//         }
+//     });
+
+// });
+
 
 
     // Function to get URL parameter

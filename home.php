@@ -165,7 +165,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["Login"])) {
                        // $_SESSION['login'] = true;
 
                         header("location: home.php");
-                        echo"ola kala";
+                        //echo"ola kala";
                         exit;
                        } else {
                         //echo"fail1";
@@ -189,7 +189,105 @@ mysqli_close($link);
 }
 ?>
 
+<?php
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+require_once "db.php";
+
+$origin = $destination = $date = "";
+$origin_err = $destination_err = $date_err = $book_err = "";
+
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+
+    if(empty(trim($_POST['origin']))){
+        $origin_err = "*";
+    }else{
+        $origin = trim($_POST['origin']);
+    }
+
+    if(empty(trim($_POST['destination']))){
+        $destination_err = "*";
+    }else{
+        $destination = trim($_POST['destination']);
+    }    
+    
+    if(empty(trim($_POST['Date']))){
+        $date_err = "*";
+    }else{
+        $date = trim($_POST['Date']);
+    }    
+    
+    if(empty($origin_err) && empty($destination_err) && empty($date_err)){
+
+        // $sql = "SELECT FlightID, FlightNum, Origin, Date, Dest, Arr_Time, Dest_Time, AirplaneID
+        //          FROM Flight WHERE Origin = ? AND Dest = ? AND Date =?";
+        $sql = "SELECT Flight.FlightID, Flight.FlightNum, Flight.Origin, Flight.Date, Flight.Dest, 
+                        Flight.Arr_Time, Flight.Dest_Time, Flight.AirplaneID, Airplane.Manufacturer, 
+                        IntermediateCity.Name, IntermediateCity.ZipCode
+                FROM Flight
+                JOIN Airplane ON Flight.AirplaneID = Airplane.AirplaneID
+                LEFT JOIN PassesThrough ON Flight.FlightID = PassesThrough.FlightID
+                LEFT JOIN IntermediateCity ON PassesThrough.CityID = IntermediateCity.CityID
+                WHERE Flight.Origin = ? AND Flight.Dest = ? AND Flight.Date = ?";
+       
+        if($stmt = mysqli_prepare($link, $sql)){
+
+            mysqli_stmt_bind_param($stmt, "sss", $param_origin, $param_destination, $param_date);
+
+            $param_origin = $origin;
+            $param_destination = $destination;
+            $param_date = $date;
+
+            if(mysqli_stmt_execute($stmt)){
+
+                mysqli_stmt_store_result($stmt);
+
+                if(mysqli_stmt_num_rows($stmt) > 0){
+                    $flight_data_array = [];
+
+                    mysqli_stmt_bind_result($stmt, $id, $flightNum, $origin, $date, $dest, $arr_time,
+                    $dest_time, $airplaneID, $manufacturer, $name, $zipCode);
+                    
+                    while(mysqli_stmt_fetch($stmt)){
+                        $flight_data_item = [
+                            'FlightID' => $id,
+                            'FlightNum' => $flightNum,
+                            'Origin' => $origin,
+                            'Date' => $date,
+                            'Dest' => $dest,
+                            'Arr_Time' => $arr_time,
+                            'Dest_Time' => $dest_time,
+                            'AirplaneID' => $airplaneID,
+                            'Manufacturer' => $manufacturer,
+                            'Name' => $name,
+                            'ZipCode' => $zipCode                             
+                        ];
+                        $flight_data_array[] = $flight_data_item;
+                    }
+            
+                        $flight_data_json = json_encode($flight_data_array);
+                        // Redirect to displayResult.php with flight data as a GET parameter
+                        header("Location: ./displayResult.php?flights=" . urlencode($flight_data_json));
+                        exit;
+                }else{
+                    // If no flights found, redirect with a message
+                    // header("Location: displayResult.php?message=" . urlencode("No flights found for the selected criteria."));
+                    // exit;
+                   $book_err = "No flights found for the selected criteria.";
+                    //header("Location: home.php?error=" . urlencode($book_err));
+                    // header("location: ./home.php");
+                    // exit;
+                }
+           } mysqli_stmt_close($stmt);
+        }
+    } 
+    mysqli_close($link);
+}
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -293,42 +391,50 @@ mysqli_close($link);
 
     <div class="banner"></div>
 
-    <div class="tickets">
-        <div class="title">Broaden your Horizons</div>
-        <div class="toggle">   
-            <div class="switchToggle switch3">
-                <input id="roundtrip" name="TravelType" value="R" type="radio">
-                <label for="roundtrip">
-                    Round trip
-                </label>
-                <input id="oneway" name="TravelType" type="radio" value="O">
-                <label for="oneway">
-                    One way
-                </label>
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+        <div class="tickets">
+            <div class="title">Broaden your Horizons</div>
+            <div class="toggle">   
+                <div class="switchToggle switch3">
+                    <input id="roundtrip" class="roundtrip" name="TravelType" type="radio">
+                    <label>
+                        Round trip
+                    </label>
+                    <input id="oneway" class="oneway" name="TravelType" type="radio">
+                    <label>
+                        One way
+                    </label>
+                </div>
+            </div>
+            <div class="cities">
+                <input type="text" name="origin" placeholder="Origin" value="<?php echo $origin; ?>">
+                <span class="invalid"><?php echo $origin_err ?></span>
+                <input type="text" name="destination" placeholder="Destination" value="<?php echo $destination; ?>"><br><br>
+                <span class="invalid"><?php echo $destination_err ?></span><br>
+            </div> 
+            <div class="dates">
+                <input type="date" class="Date" name="Date" min="<?php echo date('Y-m-d'); ?>" value="<?php echo $date; ?>"><br>
+                <span class="invalid"><?php echo $date_err; ?></span>
+                <span class="invalid1"><?php echo $book_err; ?></span>
+
+                <!-- <input type="date" class="depDate" name="departureDate" min="<?php //echo date('Y-m-d'); ?>" value="<?php //echo $depDate; ?>">
+                <span class="invalid"><?php //echo $depDate_err; ?></span> -->
+            </div>
+            <div class="search-wrapper">
+                <button type="submit" class="search">Search</button>
+            </div> 
+        </div>
+        <div class="destinations">
+            <div class="container">
+                <div class="images">
+                    <img src="./images/capadocia.jpg" alt="">
+                    <img src="./images/machu.jpg" alt="">
+                    <img src="./images/easter.jpg" alt="">
+                    <span class="airplane">..Famous Destinations..</span>
+                </div>
             </div>
         </div>
-        <div class="cities">
-            <input type="text" name="origin" placeholder="Origin">
-            <input type="text" name="destination" placeholder="Destination">
-        </div> 
-        <div class="dates">
-            <input type="date" name="departureDate" min="<?php echo date('Y-m-d'); ?>">
-            <input type="date" name="arrivalDate" min="<?php echo date('Y-m-d'); ?>">
-        </div>
-        <div class="search-wrapper">
-             <button type="submit" class="search">Search</button>
-         </div> 
-    </div>
-    <div class="destinations">
-        <div class="container">
-            <div class="images">
-                <img src="./images/capadocia.jpg" alt="">
-                <img src="./images/machu.jpg" alt="">
-                <img src="./images/easter.jpg" alt="">
-                <span class="airplane">..Famous Destinations..</span>
-            </div>
-        </div>
-    </div>
+    </form>
    
     <button id="scrollToTopBtn" onclick="scrollToTop()"><i class="fa fa-arrow-circle-up" aria-hidden="true"></i></button>
 

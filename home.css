@@ -208,6 +208,10 @@ body{
     color: red;
     font-size: 12px;
 }
+.invalid1{
+    color: aliceblue;
+    font-size: 15px;
+}
 .error-message{
     color: red;
     font-size: 12px;
@@ -264,22 +268,25 @@ body{
     padding: 20px; 
 }
 .dates input {
-    margin-right:115px;
+    margin-right:50px;
     border-radius: 20px;
     width: 150px;
 }
+.depDate{
+    display: none;
+}
 .search-wrapper {
     position: relative;
-    width: 300px; 
+    width: 250px; 
     margin: 0 auto; 
-    padding-bottom: 30px;
+    padding-bottom: 20px;
 }
 .search{
     position: absolute;
     left: 40px; 
     top: 50%; 
     transform: translateY(10%);
-    background-image: linear-gradient(to left,rgb(218, 159, 218), rgb(219, 127, 219), rgb(241, 103, 241), rgb(203, 165, 203));
+    background-image: linear-gradient(to left, rgb(253, 173, 173), rgb(212, 144, 144), rgb(253, 173, 173));
     border-radius: 25px;
     width: 120px;
     height: 40px;
