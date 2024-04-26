@@ -8,6 +8,17 @@ error_reporting(E_ALL);
 
 require_once "./db.php";
 
+$FlightID = $_SESSION['FlightID'];
+$FlightNum = $_SESSION['FlightNum'];
+$Origin = $_SESSION['Origin'];
+$Dest = $_SESSION['Dest'];
+$Date = $_SESSION['Date'];
+$Arr_Time = $_SESSION['Arr_Time'];
+$Dest_Time = $_SESSION['Dest_Time'];
+$AirplaneID = $_SESSION['AirplaneID'];
+$Manufacturer = $_SESSION['Manufacturer'];
+$Name = $_SESSION['Name'];
+$ZipCode = $_SESSION['ZipCode'];
 
 ?>
 
@@ -44,7 +55,52 @@ require_once "./db.php";
         </div>
     </nav>
    
-   
+    <div class="row justify-content-center mb-0">
+            <div class="col-12 text-center">
+                <h2 class="ticketTitle" style="margin-bottom: 0;">Enjoy your Flight!! </h2>
+                <h3 class="ticket" style="margin-top: 0;">Your ticket..</h3>
+            </div>
+    </div>
+
+    <div class="table-container">
+        <table class="table table-hover my-bottom-5 table-custom">
+            <thead>
+                <tr class="text-center">
+                    <th scope="col">Flight ID</th>
+                    <th scope="col">Flight Number</th>
+                    <th scope="col">Origin</th>
+                    <th scope="col">Destination</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Arrival Time</th>
+                    <th scope="col">Departure Time</th>
+                    <th scope="col">AirplaneID</th>
+                    <th scope="col">Manufacturer</th>
+                    <th scope="col">Intermediate City</th>
+                    <th scope="col">Zip Code</th>
+                    <th scope="col">Operation</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">            
+                 <tr>
+                     <td scope="row"> <?php echo $FlightID; ?> </td>
+                     <td> <?php echo $FlightNum; ?> </td>
+                     <td> <?php echo $Origin; ?> </td>
+                     <td> <?php echo $Dest; ?> </td>
+                     <td> <?php echo $Date; ?> </td>
+                     <td> <?php echo $Arr_Time; ?> </td>
+                     <td> <?php echo $Dest_Time; ?> </td>
+                     <td> <?php echo $AirplaneID; ?> </td>
+                     <td> <?php echo $Manufacturer; ?> </td>
+                     <td> <?php echo $Name; ?> </td>
+                     <td> <?php echo $ZipCode; ?> </td>
+                     <td>
+                        <button class="btn btn-warning" onclick="window.print()">Print</button>
+                     </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>  
 
     
    

@@ -84,17 +84,19 @@
                 // Display flight tickets
                 foreach($flight_data_array as $flight){
 
-                //    $FlightID = $flight['FlightID'];
-                //    $FlightNum = $flight['FlightNum'];
-                //    $Origin = $flight['Origin'];
-                //    $Dest = $flight['Dest'];
-                //    $Date = $flight['Date'];
-                //    $Arr_Time = $flight['Arr_Time'];
-                //    $Dest_Time = $flight['Dest_Time'];
-                //    $AirplaneID = $flight['AirplaneID'];
-                //    $Manufacturer = $flight['Manufacturer'];
-                //    $Name = $flight['Name'];
-                //    $ZipCode = $flight['ZipCode'];
+                // Store flight information in session variables
+                $_SESSION['FlightID'] = $flight['FlightID'];
+                $_SESSION['FlightNum'] = $flight['FlightNum'];
+                $_SESSION['Origin'] = $flight['Origin'];
+                $_SESSION['Dest'] = $flight['Dest'];
+                $_SESSION['Date'] = $flight['Date'];
+                $_SESSION['Arr_Time'] = $flight['Arr_Time'];
+                $_SESSION['Dest_Time'] = $flight['Dest_Time'];
+                $_SESSION['AirplaneID'] = $flight['AirplaneID'];
+                $_SESSION['Manufacturer'] = $flight['Manufacturer'];
+                $_SESSION['Name'] = $flight['Name'];
+                $_SESSION['ZipCode'] = $flight['ZipCode'];
+                
                 echo '<tr>';
                     echo '<td scope="row">' . $flight['FlightID'] . '</td>';
                     echo '<td>' . $flight['FlightNum'] . '</td>';
