@@ -36,7 +36,8 @@
     <div class="container my-5 p-4 mb-0">
         <div class="row justify-content-center">
             <div class="col-12 text-center">
-                <h2 class="displayTitle">Available Flights</h2>
+                <h2 class="displayTitle">Available Flights</h2><br>
+                <h4 class="displaysubtitle">To book a ticket, you must first log in to your account!</h4>
             </div>
         </div>
     </div>
@@ -67,6 +68,13 @@
             error_reporting(E_ALL);
 
             require_once "./db.php";
+
+            session_start();
+            if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']=== true){
+                echo "eimai sundedemenos";
+            }else{
+                echo "den eimai sundedemenos";
+            }
 
             // Retrieve flight data from GET parameter
             if(isset($_GET['flights'])){
@@ -99,14 +107,19 @@
                     echo '<td>' . $flight['Manufacturer'] . '</td>';
                     echo '<td>' . $flight['Name'] . '</td>';
                     echo '<td>' . $flight['ZipCode'] . '</td>';
-                    echo '<td><button class="btn btn-info"><a href="./book.php?bookID=' . $flight['FlightID'] . '" class="text-light">Book</a></button></td>';
+                    // echo '<td><button class="btn btn-info"><a href="./book.php?bookID=' . $flight['FlightID'] . '" class="text-light">Book</a></button></td>';
+                    echo '<td><button class="btn btn-info">';
+                    echo '<a href="' . (isset($_SESSION['loggedin']) && $_SESSION['loggedin']=== true ? './book.php?bookID=' . $flight['FlightID'] : './home.php') . '" class="text-light">Book</a>';
+                    echo '</button></td>';
                     echo '</tr>';
 
                 }
              } else {
                 // Display a message if no flights found
                 echo '<tr><td colspan="12">No flights found</td></tr>';
-            } 
+                unset($_SESSION['loggedin']);
+            }
+
              //elseif(isset($_GET['message'])) {
             //     // Display message if no flights found
             //     echo $_GET['message'];

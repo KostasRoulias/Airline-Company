@@ -99,15 +99,15 @@ unset($_SESSION['registration_success']);
 ?>
 
 <?php 
-//login
+//login method
 
 //initialize the session
 
 // Check if the user is already logged in, if yes then redirect him to welcome page
-if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("location: home.php");
-    exit;
-}
+// if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+//     header("location: home.php");
+//     exit;
+// }
 
 require_once "db.php";
 
@@ -130,15 +130,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["Login"])) {
     
     if(empty($email_err) && empty($password_err)){
 
-        // Check if email and password match the admin credentials
-        if ($email === "admin@gmail.com" && $password === "123456") {
-            // If admin credentials match, set session variables and redirect to admin.php
-            $_SESSION["loggedin"] = true;
-            $_SESSION["emailLogin"] = $email;
-            header("location: admin.php");
-            exit;
-        } else {
-
         $sql = "SELECT id, email, password FROM user WHERE email = ?";
 
         if($stmt = mysqli_prepare($link, $sql)){
@@ -157,20 +148,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["Login"])) {
                     if(mysqli_stmt_fetch($stmt)){
                        if(password_verify($password, $hashed_password)){
                        
-                    //    session_start();
-
                         $_SESSION["loggedin"] = true;
                         $_SESSION["id"] = $id;
                         $_SESSION["emailLogin"] = $email;
-                       // $_SESSION['login'] = true;
 
+                         // Check if email and password match the admin credentials
+                        if ($email === "admin@gmail.com" && $password === "123456") {
+                            // If admin credentials match, set session variables and redirect to admin.php
+                            header("location: admin.php");
+                        } else {
                         header("location: home.php");
-                        //echo"ola kala";
-                        exit;
-                       } else {
-                        //echo"fail1";
-                        $login_err = "Invalid email or password.";
-                    }
+                       }     
+                    exit;
                 }
             }else{
                 //echo"fail2";
@@ -187,6 +176,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["Login"])) {
 mysqli_close($link);
    
 }
+
 ?>
 
 <?php
@@ -200,7 +190,7 @@ require_once "db.php";
 $origin = $destination = $date = "";
 $origin_err = $destination_err = $date_err = $book_err = "";
 
-if($_SERVER["REQUEST_METHOD"] == "POST"){
+if(($_SERVER["REQUEST_METHOD"] == "POST") && isset($_POST['search'])){
 
     if(empty(trim($_POST['origin']))){
         $origin_err = "*";
@@ -363,9 +353,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         <?php
                             if (isset($registration_success_msg) && !empty($registration_success_msg)) {
                                 echo "<script>consol.log('$registration_success_msg'); alert('$registration_success_msg');</script>";
-                            } elseif (isset($registration_error_msg) && !empty($registration_error_msg)) {
-                                echo "<script>alert('$registration_error_msg');</script>";
-                            }
+                                unset($_SESSION['registration_success']);
+                            } 
                         ?>
 
                         <?php
@@ -421,7 +410,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <span class="invalid"><?php //echo $depDate_err; ?></span> -->
             </div>
             <div class="search-wrapper">
-                <button type="submit" class="search">Search</button>
+                <button type="submit" name="search" class="search">Search</button>
             </div> 
         </div>
         <div class="destinations">

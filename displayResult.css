@@ -10,6 +10,11 @@
 .displayTitle{
     color: rgb(230, 170, 39);
 }
+.displaysubtitle{
+    padding-top: 0px;
+    color: rgb(209, 206, 208);
+    font-size: medium;
+}
 .table-container {
     padding: 0 20px; 
 }
@@ -27,7 +32,8 @@
     width: 10%; 
 }
 footer {
-    margin-top: auto; /* Push the footer to the bottom */
+    margin-top: auto; 
+    width: 1720px;
 }
 
 
