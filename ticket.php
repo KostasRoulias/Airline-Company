@@ -46,8 +46,7 @@ $ZipCode = $_SESSION['ZipCode'];
                 <li><a href="./home.php">Home</a></li>
                 <li><a href="./contact.php">Contact</a></li>
                 <span class="buttons">
-                <li><button type="submit" id="logoutBtn">Logout</button></li>
-                </span>
+                <li><a href="./delete.php"><button type="submit" id="logoutBtn">Logout</button></a></li>                </span>
             </ul>
             <div class="icon menu-btn">
                 <i class="fas fa-bars"></i>

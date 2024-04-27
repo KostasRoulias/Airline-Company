@@ -49,7 +49,7 @@ if(isset($_POST["submit"])){
                 <li><a href="../home.php">Home</a></li>
                 <li><a href="../admin.php">Admin Panel</a></li>
                 <span class="buttons">
-                <li><button type="submit" id="logoutBtn">Logout</button></li>
+                <li><a href="../delete.php"><button type="submit" id="logoutBtn">Logout</button></a></li>
                 </span>
             </ul>
             <div class="icon menu-btn">

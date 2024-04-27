@@ -1,3 +1,13 @@
+//dropdown menu
+function handleAction() {
+    var dropdown = document.getElementById("actionDropdown");
+    var selectedOption = dropdown.options[dropdown.selectedIndex].value;
+    if (selectedOption !== "") {
+        window.location.href = selectedOption;
+    }
+}
+
+
 //navbar appear - disappear
 const body = document.querySelector("body");
 const navbar = document.querySelector(".navbar");

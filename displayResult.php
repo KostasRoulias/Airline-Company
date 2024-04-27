@@ -24,7 +24,7 @@
                 <li><a href="./home.php">Home</a></li>
                 <li><a href="./contact.php">Contact</a></li>
                 <span class="buttons">
-                <li><button type="submit" id="logoutBtn">Logout</button></li>
+                <li><a href="./delete.php"><button type="submit" id="logoutBtn">Logout</button></a></li>
                 </span>
             </ul>
             <div class="icon menu-btn">
@@ -96,7 +96,7 @@
                 $_SESSION['Manufacturer'] = $flight['Manufacturer'];
                 $_SESSION['Name'] = $flight['Name'];
                 $_SESSION['ZipCode'] = $flight['ZipCode'];
-                
+
                 echo '<tr>';
                     echo '<td scope="row">' . $flight['FlightID'] . '</td>';
                     echo '<td>' . $flight['FlightNum'] . '</td>';

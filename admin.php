@@ -19,7 +19,7 @@
                 </div>
                 <li><a href="./home.php">Home</a></li>
                 <span class="buttons">
-                <li><button type="submit" id="logoutBtn">Logout</button></li>
+                <li><a href="./delete.php"><button type="submit" id="logoutBtn">Logout</button></a></li>
                 </span>
             </ul>
             <div class="icon menu-btn">

@@ -78,24 +78,34 @@ body{
 .menu-list li a:hover{
     color: rgb(231, 134, 187);
 }
-.menu-list li button{
+.menu-list li button, #actionDropdown{
     padding: 3px 15px;
     margin-left: 20px; 
     margin: 3px;
     border-radius: 25%;
+    border: 1px solid #112231;
     background: rgb(231, 134, 187);
     font-size: 20px;
     font-weight: 410;
     cursor: pointer;
-    width: 110px;
+    width: 120px;
     height: 35px;
     text-align: center;
 }
-.menu-list li button:hover{
+.menu-list li button:hover, #actionDropdown:hover{
     font-size:larger;
 }
+.loginBtn{
+    display: none;
+}
+#logout{
+    display: none;
+}
+#actionDropdown{
+    border-radius: 25%;
+    background: rgb(231, 134, 187);
 
-
+}
 .popup {
     display: none;
     position: fixed;
