@@ -89,7 +89,7 @@ if(isset($_POST["submit"])){
     <div class="container my-5 p-4">
         <div class="row justify-content-center">
             <div class="col-12 text-center">
-                <h2 class="passengerTitle">Passenger's Data</h2>
+                <h2 class="passengerTitle">Passenger's Data (Update)</h2>
             </div>
         </div>
         <form method="post">

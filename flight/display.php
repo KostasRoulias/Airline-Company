@@ -96,7 +96,7 @@ require_once "../db.php";
                         <td>'.$airplaneID.'</td>
 
                         <td>
-                            <button class="btn btn-primary"><a href="" class="text-light">Update</a></button>
+                            <button class="btn btn-primary"><a href="./update.php?updateID='.$id.'" class="text-light">Update</a></button>
                             <button class="btn btn-danger"><a href="./delete.php?deleteID='.$id.'" class="text-light">Delete</a></button>
                         </td>
 

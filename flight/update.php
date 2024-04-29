@@ -1,3 +1,4 @@
+
 <?php
 
 ini_set('display_errors', 1);
@@ -6,32 +7,44 @@ error_reporting(E_ALL);
 
 require_once "../db.php";
 
+//Get the id from the url
+$id = $_GET['updateID'];
+
+//Query to display previous values from Flight table
+$sql2 = "SELECT * FROM Flight WHERE FlightID = $id";
+$result2 = mysqli_query($link, $sql2);
+$row = mysqli_fetch_assoc($result2);
+$flightNum = $row['FlightNum'];
+$origin = $row['Origin'];
+$dest = $row['Dest'];
+$date = $row['Date'];
+$arrTime = $row['Arr_Time'];
+$destTime = $row['Dest_Time'];
+$airplaneID = $row['AirplaneID'];
+
 if(isset($_POST["submit"])){
-    $name = mysqli_real_escape_string($link, $_POST['name']);
-    $surname = mysqli_real_escape_string($link, $_POST['surname']);
-    $phone = mysqli_real_escape_string($link, $_POST['phone']);
-    $address = mysqli_real_escape_string($link, $_POST['address']);
-    $flightID = mysqli_real_escape_string($link, $_POST['flightID']);
+    $flightNum = mysqli_real_escape_string($link, $_POST['flightNum']);
+    $origin = mysqli_real_escape_string($link, $_POST['origin']);
+    $dest = mysqli_real_escape_string($link, $_POST['destination']);
+    $date = mysqli_real_escape_string($link, $_POST['date']);
+    $arrTime = mysqli_real_escape_string($link, $_POST['arrTime']);
+    $destTime = mysqli_real_escape_string($link, $_POST['destTime']);
+    $airplaneID = mysqli_real_escape_string($link, $_POST['airplaneID']);
     
-    // Insert data into Passenger table
-    $sql1 = "INSERT into Passenger (Name, Surname, Phone, Address) VALUES 
-    ('$name', '$surname', '$phone', '$address')";
+
+    // Update data into Flight table
+    $sql1 = "UPDATE Flight SET FlightID = $id, FlightNum = '$flightNum', Origin = '$origin', Dest = '$dest', 
+            `Date`= '$date', Arr_Time = '$arrTime', Dest_Time= '$destTime', AirplaneID = '$airplaneID' 
+             WHERE FlightID = $id";
 
     $result1 = mysqli_query($link, $sql1);
 
     if(!$result1){
-        die("Error inserting data into Passenger table: " . mysqli_error($link));
+        die("Error updating data to Flight table: " . mysqli_error($link));
+    }else{
+        header('location:display.php');
     }
-    // Retrieve IDs of inserted Passenger//
-    $PassengerID = mysqli_insert_id($link);
-
-    // Insert data into Boards table
-    $sql2 = "INSERT into Boards (PassengerID, FlightID) VALUES ('$PassengerID', '$flightID')";
-    $result2 = mysqli_query($link, $sql2);
-
-    if(!$result2){
-        die("Error inserting data into Boards table: " . mysqli_error($link));
-    }
+    
 }
 ?>
 
@@ -41,13 +54,13 @@ if(isset($_POST["submit"])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Passenger's Data</title>
+    <title>Flight's Data (Update)</title>
     <link rel="stylesheet" href="../home.css">
-    <link rel="stylesheet" href="./passenger.css">
+    <link rel="stylesheet" href="./flight.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"> 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-</head> 
+</head>
 <body class="body">
     <nav class="navbar">
         <div class="content">
@@ -70,33 +83,61 @@ if(isset($_POST["submit"])){
     <div class="container my-5 p-4">
         <div class="row justify-content-center">
             <div class="col-12 text-center">
-                <h2 class="passengerTitle">Passenger's Data</h2>
+                <h2 class="flightTitle">Flight's Data (Update)</h2>
             </div>
         </div>
         <form method="post">
         <div class="row justify-content-center">
             <div class="form-group col-md-6">
-                <input type="text" name="flightID" class="form-control" placeholder="Match to Flight ID">
-            </div>
-            </div>
-        <div class="row justify-content-center">
-            <div class="form-group col-md-6">
-                <input type="text" name="name" class="form-control" placeholder="Name">
+                <input type="text" name="flightNum" class="form-control" placeholder="Flight Number"
+                value="<?php echo $flightNum; ?>">
             </div>
         </div>
         <div class="row justify-content-center">
             <div class="form-group col-md-6">
-                <input type="text" name="surname" class="form-control" placeholder="Surname">
+                <input type="text" name="origin" class="form-control" placeholder="Origin"
+                value="<?php echo $origin; ?>">
             </div>
         </div>
         <div class="row justify-content-center">
             <div class="form-group col-md-6">
-                <input type="text" name="phone" class="form-control" placeholder="Phone Number">
+                <input type="text" name="destination" class="form-control" placeholder="Destination"
+                value="<?php echo $dest; ?>">
             </div>
         </div>
         <div class="row justify-content-center">
             <div class="form-group col-md-6">
-                <input type="text" name="address" class="form-control" placeholder="Address">
+                <input type="text" name="date" class="form-control" placeholder="Date (YYYY-MM-DD)" 
+                pattern="\d{4}-\d{2}-\d{2}" min="<?php echo date('Y-m-d'); ?>" min="<?php echo date('Y-m-d'); ?>"
+                value="<?php echo $date; ?>">
+            </div>
+        </div>
+        <div class="row justify-content-start">
+            <div class="col-md-2 offset-md-3 text-center" >
+                <h2 class="ArrivalTime">Arrival Time</h2>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="form-group col-md-6">
+                <input type="time" name="arrTime" class="form-control"  step="1"
+                value="<?php echo $arrTime; ?>">
+            </div>
+        </div>
+        <div class="row justify-content-start">
+            <div class="col-md-6 offset-md-1 text-center">
+                <h2 class="destinationTime">Destinantion Time</h2>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="form-group col-md-6">
+                <input type="time" name="destTime" class="form-control" placeholder="Destination Time"  step="1"
+                value="<?php echo $destTime; ?>">
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="form-group col-md-6">
+                <input type="text" name="airplaneID" class="form-control" placeholder="Airplane ID"
+                value="<?php echo $airplaneID; ?>">
             </div>
         </div>
         <div class="row justify-content-center">
@@ -105,7 +146,9 @@ if(isset($_POST["submit"])){
             </div>
         </div>
         </form>
-    </div>   
+    </div>
+
+   
    
     <button id="scrollToTopBtn" onclick="scrollToTop()"><i class="fa fa-arrow-circle-up" aria-hidden="true"></i></button>
 
@@ -121,7 +164,7 @@ if(isset($_POST["submit"])){
                 <h3>Quick Links</h3>
                 <ul class="list1">
                     <li><a href="../home.php">Home</a></li>
-                    <li><a href="../contact.php">Contact</a></li>
+                    <li><a href="">Contact</a></li>
                 </ul>
             </div>
             <div class="footer-content">
