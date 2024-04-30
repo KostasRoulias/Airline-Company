@@ -368,18 +368,6 @@ if (($_SERVER["REQUEST_METHOD"] == "POST") && isset($_POST['search'])) {
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <div class="tickets">
             <div class="title">Broaden your Horizons</div>
-            <div class="toggle">
-                <div class="switchToggle switch3">
-                    <input id="roundtrip" class="roundtrip" name="TravelType" type="radio">
-                    <label>
-                        Round trip
-                    </label>
-                    <input id="oneway" class="oneway" name="TravelType" type="radio">
-                    <label>
-                        One way
-                    </label>
-                </div>
-            </div>
             <div class="cities">
                 <input type="text" name="origin" placeholder="Origin" value="<?php echo $origin; ?>">
                 <span class="invalid"><?php echo $origin_err ?></span>

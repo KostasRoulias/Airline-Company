@@ -25,6 +25,9 @@
     text-transform: capitalize;
     margin-bottom: 10px;
 }
+.contact .ContactForm h2{
+    color: rgb(226, 198, 235);
+}
 
 .contact .content p{
  
@@ -110,7 +113,7 @@ select{
 .ContactForm .inputBox input[type=submit]
 {
     width: 100px;
-    background: #fff;
+    background: rgb(226, 198, 235);
     color: #202040;
     border: none;
     cursor: pointer;

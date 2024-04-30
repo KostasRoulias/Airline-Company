@@ -262,16 +262,6 @@ body{
 .cities input::placeholder {
     padding-left: 10px;
 }
-.toggle {
-    display: flex;
-    justify-content: center; 
-    padding: 20px;  
-}
-.switchToggle label{
-    font-size: 20px;
-    font-weight: 500;
-    margin-right: 20px;
-}
 .dates {
     display: flex;
     justify-content: center; 
@@ -323,7 +313,7 @@ body{
 
 .destinations .images .airplane {
     position: absolute;
-    top: 150%;
+    top: 140%;
     left: -100px; 
     width: 450px; 
     font-size: 35px;

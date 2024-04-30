@@ -45,7 +45,7 @@ error_reporting(E_ALL);
     <section class="contact">
           <div class="ContactForm">
             <form target="_blank" action="https://formsubmit.co/kostasroulias92@gmail.com" method="post">
-             <h2 style="color: #fff;">Send Message</h2>
+             <h2>Send Message</h2>
              <div class="inputBox">                   
                <input type="text" name="name"  required="required"> 
                <span>Full name</span>                          

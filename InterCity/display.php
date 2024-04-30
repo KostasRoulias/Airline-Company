@@ -51,6 +51,9 @@ require_once "../db.php";
         <button class="btn btn-warning my-5"><a href="./interCity.php"
                 class="text-dark">Add intermediate City</a>
         </button>
+        <button class="btn btn-warning my-5"><a href="../admin.php"
+                class="text-dark">Back to menu</a>
+        </button>
     </div>
     <div class="table-container">
         <table class="table table-hover my-bottom-5 table-custom">

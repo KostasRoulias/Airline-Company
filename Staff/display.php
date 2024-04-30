@@ -51,6 +51,9 @@ require_once "../db.php";
         <button class="btn btn-warning my-5"><a href="./staff.php"
                 class="text-dark">Add Staff</a>
         </button>
+        <button class="btn btn-warning my-5"><a href="../admin.php"
+                class="text-dark">Back to menu</a>
+        </button>
     </div>
     <!-- Staff records -->
     <div class="table-container">
