@@ -70,11 +70,6 @@
             require_once "./db.php";
 
             session_start();
-            if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']=== true){
-                echo "eimai sundedemenos";
-            }else{
-                echo "den eimai sundedemenos";
-            }
 
             // Retrieve flight data from GET parameter
             if(isset($_GET['flights'])){

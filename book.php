@@ -24,6 +24,12 @@ if(isset($_POST["submit"])){
     if(!$result1){
         die("Error inserting data into Passenger table: " . mysqli_error($link));
         header("Location: ./displayResult.php");
+    }else{
+        //Store to Sessions in order to display them to the ticket
+        $_SESSION['namePassenger'] = $name;
+        $_SESSION['surnamePassenger'] = $surname;
+        $_SESSION['phonePassenger'] = $phone;
+        $_SESSION['addressPassenger'] = $address;
     }
     // Retrieve IDs of inserted Passenger
     $PassengerID = mysqli_insert_id($link);

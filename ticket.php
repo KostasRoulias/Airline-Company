@@ -20,6 +20,11 @@ $Manufacturer = $_SESSION['Manufacturer'];
 $Name = $_SESSION['Name'];
 $ZipCode = $_SESSION['ZipCode'];
 
+$namePassenger = $_SESSION['namePassenger'];
+$surnamePassenger =$_SESSION['surnamePassenger'];
+$phonePassenger =$_SESSION['phonePassenger'];
+$addressPassenger =$_SESSION['addressPassenger'];
+
 ?>
 
 <!DOCTYPE html>
@@ -65,6 +70,10 @@ $ZipCode = $_SESSION['ZipCode'];
         <table class="table table-hover my-bottom-5 table-custom">
             <thead>
                 <tr class="text-center">
+                    <th scope="col">Name</th>
+                    <th scope="col">Surname</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Address</th>
                     <th scope="col">Flight ID</th>
                     <th scope="col">Flight Number</th>
                     <th scope="col">Origin</th>
@@ -81,7 +90,11 @@ $ZipCode = $_SESSION['ZipCode'];
             </thead>
             <tbody class="table-group-divider">            
                  <tr>
-                     <td scope="row"> <?php echo $FlightID; ?> </td>
+                     <td scope="row"> <?php echo $namePassenger; ?> </td>
+                     <td> <?php echo $surnamePassenger; ?> </td>
+                     <td> <?php echo $phonePassenger; ?> </td>
+                     <td> <?php echo $addressPassenger; ?> </td>
+                     <td> <?php echo $FlightID; ?> </td>
                      <td> <?php echo $FlightNum; ?> </td>
                      <td> <?php echo $Origin; ?> </td>
                      <td> <?php echo $Dest; ?> </td>

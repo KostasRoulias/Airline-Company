@@ -77,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["register"])) {
             mysqli_stmt_close($stmt);
         }
     } else {
-        $_SESSION['registration_error_msg'] = "Registration failed. Please try again.";
+        $_SESSION['registration_error_msg'] = "Registration failed. Password must contain at least 6 digits.Please try again.";
         header("Location: " . $_SERVER['PHP_SELF']);
         exit();
     }
